@@ -162,17 +162,33 @@
   /* ---------- COVER PAGE ---------- */
   .cover{
     position:relative;
-    min-height:calc(100vh - 60px);
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
-    padding:80px 32px 100px;
+    justify-content:flex-start;
+    padding:64px 32px 88px;
     margin:-48px -56px 64px;
     background:linear-gradient(180deg, #f5f5f0 0%, #ffffff 92%);
     border-bottom:1px solid var(--line);
     text-align:center;
     overflow:hidden;
+  }
+  .arch-svg{
+    display:block;
+    width:100%;
+    max-width:720px;
+    height:auto;
+    margin:36px auto 32px;
+    filter:drop-shadow(0 12px 28px rgba(31,58,95,.08));
+  }
+  .arch-caption{
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:12.5px;
+    color:var(--mute);
+    line-height:1.6;
+    max-width:580px;
+    margin:0 auto 32px;
+    font-style:italic;
   }
   .cover-bg{
     position:absolute;
@@ -807,7 +823,8 @@
     body.sidebar-open .sidebar-backdrop{display:block;z-index:55;}
     main{padding:32px 22px 64px;max-width:100%;}
     h1.doc-title{font-size:28px;}
-    .cover{margin:-32px -22px 48px;padding:60px 24px 80px;min-height:calc(100vh - 54px);}
+    .cover{margin:-32px -22px 48px;padding:48px 20px 72px;}
+    .arch-svg{margin:24px auto 24px;}
     .compare{grid-template-columns:1fr;}
     .twolayer{grid-template-columns:1fr;gap:0;}
     .twolayer .bridge{
@@ -840,7 +857,9 @@
     header.topbar a.back{font-size:12px;flex-shrink:0;}
     .menu-toggle{padding:5px 9px;font-size:11.5px;flex-shrink:0;}
     main{padding:28px 18px 56px;}
-    .cover{margin:-28px -18px 40px;padding:52px 18px 70px;min-height:auto;}
+    .cover{margin:-28px -18px 40px;padding:40px 14px 60px;}
+    .arch-svg{margin:18px auto 18px;}
+    .arch-caption{font-size:11.5px;margin-bottom:24px;}
     h1.cover-title{font-size:28px;line-height:1.25;margin-bottom:18px;}
     .cover-sub{font-size:14px;margin-bottom:28px;}
     .cover-tag{font-size:10px;letter-spacing:.24em;padding:5px 12px;margin-bottom:22px;}
@@ -952,8 +971,224 @@
         <h1 class="cover-title">드론 군집의 의미층은<br>어떻게 작동하는가</h1>
         <p class="cover-sub">
           좌표 너머의 세계 — 데이터 타입이 온톨로지와 어떻게 연결되고,
-          TypeDB가 무엇을 통합하며, 시나리오와 룰이 어떻게 자동 합성되는가에 관한 정리.
+          TypeDB가 무엇을 통합하며, 시나리오와 룰이 어떻게 자동 합성되는가.
         </p>
+
+        <!-- ============ ARCHITECTURE DIAGRAM ============ -->
+        <svg viewBox="0 0 720 600" xmlns="http://www.w3.org/2000/svg" class="arch-svg" role="img" aria-label="드론 군집 + 온톨로지 + TypeDB 통합 아키텍처">
+          <defs>
+            <marker id="ah-blue" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0,0 9,3.5 0,7" fill="#1f3a5f"/>
+            </marker>
+            <marker id="ah-mute" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0,0 9,3.5 0,7" fill="#8a99b0"/>
+            </marker>
+            <symbol id="drone" viewBox="0 0 60 30">
+              <line x1="22" y1="13" x2="6" y2="6" stroke="#1f3a5f" stroke-width="1.5"/>
+              <line x1="38" y1="13" x2="54" y2="6" stroke="#1f3a5f" stroke-width="1.5"/>
+              <line x1="22" y1="17" x2="6" y2="24" stroke="#1f3a5f" stroke-width="1.5"/>
+              <line x1="38" y1="17" x2="54" y2="24" stroke="#1f3a5f" stroke-width="1.5"/>
+              <circle cx="6" cy="6" r="4.5" fill="none" stroke="#1f3a5f" stroke-width="1"/>
+              <circle cx="54" cy="6" r="4.5" fill="none" stroke="#1f3a5f" stroke-width="1"/>
+              <circle cx="6" cy="24" r="4.5" fill="none" stroke="#1f3a5f" stroke-width="1"/>
+              <circle cx="54" cy="24" r="4.5" fill="none" stroke="#1f3a5f" stroke-width="1"/>
+              <rect x="22" y="10" width="16" height="10" rx="3" fill="#1f3a5f"/>
+              <circle cx="30" cy="14.5" r="2.5" fill="#fff"/>
+            </symbol>
+          </defs>
+
+          <!-- ===== TOP: DRONE SWARM ===== -->
+          <text x="360" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#5b7aa6">DRONE SWARM · 다양한 출처·기관·제조사</text>
+
+          <use href="#drone" x="80" y="36" width="60" height="30"/>
+          <use href="#drone" x="220" y="36" width="60" height="30"/>
+          <use href="#drone" x="360" y="36" width="60" height="30"/>
+          <use href="#drone" x="500" y="36" width="60" height="30"/>
+          <use href="#drone" x="640" y="36" width="60" height="30"/>
+
+          <line x1="110" y1="78" x2="110" y2="106" stroke="#8a99b0" stroke-width="1" marker-end="url(#ah-mute)"/>
+          <line x1="250" y1="78" x2="250" y2="106" stroke="#8a99b0" stroke-width="1" marker-end="url(#ah-mute)"/>
+          <line x1="390" y1="78" x2="390" y2="106" stroke="#8a99b0" stroke-width="1" marker-end="url(#ah-mute)"/>
+          <line x1="530" y1="78" x2="530" y2="106" stroke="#8a99b0" stroke-width="1" marker-end="url(#ah-mute)"/>
+          <line x1="670" y1="78" x2="670" y2="106" stroke="#8a99b0" stroke-width="1" marker-end="url(#ah-mute)"/>
+
+          <!-- ===== PERCEPTION LAYER (Statistical) ===== -->
+          <rect x="60" y="112" width="600" height="62" rx="6" fill="#fdf6e8" stroke="#c9b88a" stroke-width="1.5"/>
+          <text x="78" y="134" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#8a5a18">PERCEPTION · 지각층 (통계적 추론 / 신경망)</text>
+          <text x="78" y="156" font-family="Inter, sans-serif" font-size="13" fill="#3a3f47">카메라 픽셀 → AI 분류기 → </text>
+          <text x="290" y="156" font-family="JetBrains Mono, monospace" font-size="12" fill="#1f3a5f" font-weight="500">{ label: "person", confidence: 0.87 }</text>
+
+          <!-- ===== BRIDGE: insert ===== -->
+          <line x1="360" y1="180" x2="360" y2="208" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-blue)"/>
+          <rect x="304" y="184" width="112" height="20" rx="3" fill="#1f3a5f"/>
+          <text x="360" y="198" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#fff" font-weight="700">★ insert · 한 줄</text>
+
+          <!-- ===== INTEGRATED DATABASE (Symbolic) ===== -->
+          <rect x="40" y="218" width="640" height="296" rx="10" fill="#e9eef5" stroke="#1f3a5f" stroke-width="2.5"/>
+
+          <text x="58" y="242" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="2.5" fill="#1f3a5f">SYMBOLIC LAYER · 통합 데이터베이스 (TypeDB류)</text>
+
+          <!-- TYPE / ONTOLOGY (top-left) -->
+          <rect x="68" y="256" width="296" height="92" rx="5" fill="#fff" stroke="#5b7aa6" stroke-width="1"/>
+          <text x="84" y="278" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f3a5f">① TYPE · ONTOLOGY</text>
+          <text x="84" y="298" font-family="Inter, sans-serif" font-size="12" fill="#3a3f47">분류 계층 + 공유 어휘</text>
+          <text x="84" y="318" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">Person ⊂ LivingBeing</text>
+          <text x="84" y="334" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">  ⊂ ProtectedEntity</text>
+
+          <!-- FACT / INSTANCE (top-right) -->
+          <rect x="372" y="256" width="280" height="92" rx="5" fill="#fff" stroke="#5b7aa6" stroke-width="1"/>
+          <text x="388" y="278" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f3a5f">② FACT · INSTANCE</text>
+          <text x="388" y="298" font-family="Inter, sans-serif" font-size="12" fill="#3a3f47">매 순간 갱신되는 사실</text>
+          <text x="388" y="318" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">det_2387 a Person</text>
+          <text x="388" y="334" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">  @(37.1, 127.4)</text>
+
+          <!-- RULE (bottom-left) -->
+          <rect x="68" y="358" width="296" height="92" rx="5" fill="#fff" stroke="#5b7aa6" stroke-width="1"/>
+          <text x="84" y="380" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f3a5f">③ RULE · 선언적 if-then</text>
+          <text x="84" y="400" font-family="Inter, sans-serif" font-size="12" fill="#3a3f47">자동 발화 (포워드 체이닝)</text>
+          <text x="84" y="420" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">IF Person AND inDanger</text>
+          <text x="84" y="436" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">  → SearchTarget</text>
+
+          <!-- FUNCTION / SCENARIO (bottom-right) -->
+          <rect x="372" y="358" width="280" height="92" rx="5" fill="#fff" stroke="#5b7aa6" stroke-width="1"/>
+          <text x="388" y="380" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#1f3a5f">④ FUNCTION · SCENARIO</text>
+          <text x="388" y="400" font-family="Inter, sans-serif" font-size="12" fill="#3a3f47">절차 + 시나리오 골격</text>
+          <text x="388" y="420" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">Stage1 → Stage2 → Stage3</text>
+          <text x="388" y="436" font-family="Inter, sans-serif" font-size="10" font-style="italic" fill="#6a7280">(룰 조합으로 자동 합성)</text>
+
+          <!-- REASONER badge (full width inside DB) -->
+          <rect x="170" y="468" width="380" height="34" rx="5" fill="#1f3a5f"/>
+          <text x="360" y="489" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="2.5" fill="#fff">REASONER · 자동 추론 엔진 (네 조각을 한 그릇에서)</text>
+
+          <!-- ===== OUTPUT: SYNTHESIS ARROW ===== -->
+          <line x1="360" y1="520" x2="360" y2="546" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-blue)"/>
+          <text x="370" y="538" font-family="Inter, sans-serif" font-size="10" fill="#5b7aa6" font-style="italic">자동 합성 · 결정</text>
+
+          <!-- ===== OUTPUT BOX ===== -->
+          <rect x="60" y="554" width="600" height="38" rx="6" fill="#fff" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="78" y="571" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">DECISION · 모든 드론에 표준 메시지 송신</text>
+          <text x="78" y="586" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">"detection_2387 a SearchTarget @(37.1, 127.4)"</text>
+        </svg>
+
+        <p class="arch-caption"><strong>구조</strong> · 위: 통계적 지각 (신경망) · 가운데: 통합 데이터베이스 (타입·사실·룰·시나리오 + 추론기) · 아래: 결정의 표준화된 송신</p>
+
+        <!-- ============ PREDICTIVE TRIGGER → ROUTING → NEW ENVIRONMENT ============ -->
+        <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" class="arch-svg cascade-svg" role="img" aria-label="예측 임계치 → 트리거 → 룰 라우팅 → 새 데이터셋 환경 형성 메커니즘">
+          <defs>
+            <marker id="ah-flow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+              <polygon points="0,0 10,4 0,8" fill="#1f3a5f"/>
+            </marker>
+            <marker id="ah-hot" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+              <polygon points="0,0 10,4 0,8" fill="#8a5a18"/>
+            </marker>
+          </defs>
+
+          <text x="360" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#5b7aa6">PREDICTIVE TRIGGER → ROUTING → NEW ENVIRONMENT</text>
+
+          <!-- ===== ① FEATURES + PREDICTION MODEL ===== -->
+          <rect x="60" y="40" width="600" height="80" rx="6" fill="#fdf6e8" stroke="#c9b88a" stroke-width="1.5"/>
+          <text x="78" y="62" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8a5a18">① FEATURES + PREDICTIVE MODEL · 수치 층</text>
+          <text x="78" y="86" font-family="Inter, sans-serif" font-size="12" fill="#3a3f47">입력: 기온·습도·풍속·식생 건조도·강수 이력·과거 발화 패턴 ...</text>
+          <text x="78" y="108" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">score = w₁·temp + w₂·(100-humidity) + w₃·wind + w₄·dryness + ...</text>
+          <rect x="540" y="74" width="110" height="32" rx="4" fill="#1f3a5f"/>
+          <text x="595" y="94" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#fff" font-weight="700">SCORE: 84.6</text>
+
+          <!-- arrow down -->
+          <line x1="360" y1="124" x2="360" y2="148" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+
+          <!-- ===== ② THRESHOLD GATE ===== -->
+          <rect x="60" y="156" width="600" height="80" rx="6" fill="#fff" stroke="#1f3a5f" stroke-width="2"/>
+          <text x="78" y="178" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">② THRESHOLD GATE · 임계치 분기</text>
+
+          <rect x="80" y="190" width="140" height="36" rx="4" fill="#f3f4f6" stroke="#dde3ec"/>
+          <text x="150" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#6a7280">score &lt; 60</text>
+          <text x="150" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#6a7280">SAFE · no-op</text>
+
+          <rect x="230" y="190" width="140" height="36" rx="4" fill="#f3f4f6" stroke="#dde3ec"/>
+          <text x="300" y="206" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#6a7280">60 ≤ score &lt; 80</text>
+          <text x="300" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#6a7280">ALERT · log only</text>
+
+          <rect x="380" y="186" width="180" height="44" rx="4" fill="#1f3a5f" stroke="#1f3a5f" stroke-width="2"/>
+          <text x="470" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#fff">★ score ≥ 80 · TRIGGER</text>
+          <text x="470" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#dde3ec" font-style="italic">기호 층으로 라우팅</text>
+
+          <!-- arrow from threshold (HOT path) -->
+          <line x1="470" y1="232" x2="470" y2="256" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+          <line x1="470" y1="256" x2="360" y2="256" stroke="#1f3a5f" stroke-width="2"/>
+          <line x1="360" y1="256" x2="360" y2="276" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+
+          <!-- ===== ③ INSERT TRIGGER FACT ===== -->
+          <rect x="170" y="284" width="380" height="42" rx="5" fill="#1f3a5f"/>
+          <text x="360" y="304" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#fff">★ ROUTE · insert into Symbolic DB</text>
+          <text x="360" y="319" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#dde3ec">RiskAssessment(level=Critical, score=84.6)</text>
+
+          <line x1="360" y1="330" x2="360" y2="354" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+
+          <!-- ===== ④ RULE ROUTER ===== -->
+          <rect x="60" y="362" width="600" height="98" rx="6" fill="#e9eef5" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="78" y="384" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">③ RULE ROUTER · 모든 룰의 패턴 매칭</text>
+          <text x="78" y="402" font-family="Inter, sans-serif" font-size="11" fill="#3a3f47" font-style="italic">새 사실 하나가 들어옴 → 엔진이 모든 룰의 WHEN 절과 동시 매칭</text>
+
+          <!-- 5 rule cells -->
+          <g transform="translate(82,414)">
+            <rect x="0" y="0" width="105" height="36" rx="3" fill="#fdf6e8" stroke="#8a5a18" stroke-width="1.5"/>
+            <text x="52" y="14" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#8a5a18">R-PREV-01 ✓</text>
+            <text x="52" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#8a5a18">매칭 → 발화</text>
+
+            <rect x="115" y="0" width="105" height="36" rx="3" fill="#fff" stroke="#dde3ec"/>
+            <text x="167" y="14" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#a8b2c2">R-PREV-02 ✗</text>
+            <text x="167" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#a8b2c2">stage 없음</text>
+
+            <rect x="230" y="0" width="105" height="36" rx="3" fill="#fff" stroke="#dde3ec"/>
+            <text x="282" y="14" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#a8b2c2">R-PREV-03 ✗</text>
+            <text x="282" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#a8b2c2">stage 없음</text>
+
+            <rect x="345" y="0" width="105" height="36" rx="3" fill="#fff" stroke="#dde3ec"/>
+            <text x="397" y="14" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#a8b2c2">R-PREV-06 ✗</text>
+            <text x="397" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#a8b2c2">scenario 없음</text>
+
+            <rect x="460" y="0" width="105" height="36" rx="3" fill="#fff" stroke="#dde3ec"/>
+            <text x="512" y="14" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#a8b2c2">... 23 rules ✗</text>
+            <text x="512" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#a8b2c2">조건 미충족</text>
+          </g>
+
+          <line x1="360" y1="464" x2="360" y2="488" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+
+          <!-- ===== ⑤ DERIVED FACT ===== -->
+          <rect x="170" y="496" width="380" height="42" rx="5" fill="#8a5a18"/>
+          <text x="360" y="516" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#fff">★ DERIVED FACT · 자동 도출</text>
+          <text x="360" y="531" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#fdf6e8">PreventionScenario(stage=Stage1_Survey, status=Active)</text>
+
+          <line x1="360" y1="542" x2="360" y2="566" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+
+          <!-- ===== ⑥ NEW DATASET ENVIRONMENT ===== -->
+          <rect x="40" y="572" width="640" height="118" rx="8" fill="#fff" stroke="#1f3a5f" stroke-width="2.5"/>
+          <text x="58" y="594" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">④ NEW DATASET ENVIRONMENT · 새 데이터셋 환경 형성</text>
+
+          <!-- Before -->
+          <rect x="60" y="606" width="290" height="76" rx="4" fill="#f7f7f3" stroke="#dde3ec"/>
+          <text x="78" y="624" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#6a7280">BEFORE TRIGGER</text>
+          <text x="78" y="642" font-family="Inter, sans-serif" font-size="11" fill="#6a7280">active scenarios: 0</text>
+          <text x="78" y="658" font-family="Inter, sans-serif" font-size="11" fill="#6a7280">matchable rules: 23</text>
+          <text x="78" y="674" font-family="Inter, sans-serif" font-size="11" fill="#6a7280">stage rules: <tspan font-style="italic">dormant (조건 불충족)</tspan></text>
+
+          <!-- arrow between -->
+          <line x1="354" y1="644" x2="370" y2="644" stroke="#1f3a5f" stroke-width="2" marker-end="url(#ah-flow)"/>
+
+          <!-- After -->
+          <rect x="370" y="606" width="290" height="76" rx="4" fill="#e9eef5" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="388" y="624" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">AFTER TRIGGER</text>
+          <text x="388" y="642" font-family="Inter, sans-serif" font-size="11" fill="#1f3a5f">active scenarios: <tspan font-weight="700">1 ★</tspan></text>
+          <text x="388" y="658" font-family="Inter, sans-serif" font-size="11" fill="#1f3a5f">matchable rules: <tspan font-weight="700">28 (+5 신규)</tspan></text>
+          <text x="388" y="674" font-family="Inter, sans-serif" font-size="11" fill="#1f3a5f">stage rules: <tspan font-weight="700">★ LIVE</tspan> (R-PREV-02·03·06...)</text>
+
+          <!-- ===== KEY INSIGHT ===== -->
+          <rect x="40" y="700" width="640" height="20" fill="none"/>
+          <text x="360" y="713" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#1f3a5f" font-style="italic" font-weight="500">"트리거 한 번 = 새로운 룰 풀이 깨어남" — 적실한 판단은 트리거 자체가 아니라 트리거 이후 새 환경에서 일어난다</text>
+        </svg>
+
+        <p class="arch-caption"><strong>동역학·결정 로직</strong> · 예측 임계치(80) 초과 → 트리거 → 새 사실 insert → 룰 라우터가 모든 룰과 패턴 매칭 → 매칭된 룰 발화 → 새 사실 도출 → 그 결과 *이전엔 매칭 안 되던 stage-specific 룰들이 활성화* (휴면 → LIVE). <em>이게 "새 데이터셋 환경"의 본질</em> — 단순히 사실 하나 추가가 아니라 *룰의 매칭 가능 영역 자체가 확장됨*.</p>
+
         <div class="cover-meta">
           <span>11 SECTIONS</span>
           <span class="dot">·</span>
@@ -965,15 +1200,7 @@
           <span>읽기 시작</span>
           <span class="arrow">↓</span>
         </a>
-        <div class="cover-toc-hint">
-          이 노트가 답하는 질문
-          <span>온톨로지가 정확히 무엇인가 · 기존 데이터 구조로는 왜 안 되는가 · TypeDB는 무엇이 다른가 · 시나리오는 어떻게 합성되는가 · 트리거는 어떻게 판단하는가</span>
-        </div>
       </div>
-      <a href="#s1" class="cover-scroll" aria-label="스크롤 시작">
-        <span>SCROLL</span>
-        <span class="line"></span>
-      </a>
     </div>
 
     <!-- ============================================================ -->
