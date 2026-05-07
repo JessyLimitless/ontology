@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>하늘의 오케스트라 — 드론은 어떻게 '우리'가 되는가</title>
+<meta name="description" content="평창의 1,218대 드론쇼는 군집 지능이 아니었다. 새 떼에서 산불 현장의 다섯 드론까지 — 기계들이 좌표 너머의 의미를 나누기 시작한 순간에 관한 이야기.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15171a;
+    --ink-soft:#3a3f47;
+    --mute:#6a7280;
+    --line:#e7e9ec;
+    --bg:#fafaf7;
+    --paper:#ffffff;
+    --accent:#1f3a5f;
+    --accent-soft:#e9eef5;
+    --quote:#0d1f33;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Noto Serif KR","Nanum Myeongjo",Georgia,serif;
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.95;
+    font-size:18px;
+  }
+  .ui{font-family:"Inter","Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:78vh;
+    min-height:520px;
+    width:100%;
+    overflow:hidden;
+    background:#0b1220;
+  }
+  .hero img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    filter:saturate(.85) contrast(1.05) brightness(.85);
+  }
+  .hero::after{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(8,12,22,.25) 0%, rgba(8,12,22,.55) 60%, rgba(8,12,22,.92) 100%);
+  }
+  .hero-inner{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    padding:0 24px 56px;
+    text-align:center;
+    color:#fff;
+    z-index:2;
+  }
+  .kicker{
+    font-family:"Inter","Pretendard",sans-serif;
+    letter-spacing:.32em;
+    font-size:11px;
+    text-transform:uppercase;
+    color:#cdd5e0;
+    margin-bottom:18px;
+  }
+  h1.title{
+    font-family:"Noto Serif KR",serif;
+    font-weight:700;
+    font-size:clamp(28px,4.6vw,52px);
+    line-height:1.25;
+    margin:0 auto 14px;
+    max-width:880px;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    font-family:"Inter","Pretendard",sans-serif;
+    font-weight:400;
+    color:#dde3ec;
+    font-size:clamp(14px,1.4vw,17px);
+    max-width:640px;
+    margin:0 auto;
+    line-height:1.6;
+  }
+  .meta{
+    margin-top:28px;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#a8b2c2;
+  }
+  .meta span+span::before{content:" · ";opacity:.5;margin:0 6px;}
+
+  /* ---------- ARTICLE ---------- */
+  article{
+    background:var(--paper);
+    max-width:720px;
+    margin:-60px auto 0;
+    position:relative;
+    padding:64px 56px 96px;
+    border-radius:6px;
+    box-shadow:0 30px 80px -40px rgba(8,12,22,.35);
+  }
+
+  .lede{
+    font-size:21px;
+    line-height:1.85;
+    color:var(--ink);
+    margin:0 0 40px;
+    padding-bottom:32px;
+    border-bottom:1px solid var(--line);
+  }
+  .lede::first-letter{
+    font-family:"Noto Serif KR",serif;
+    font-weight:700;
+    font-size:64px;
+    float:left;
+    line-height:.9;
+    margin:6px 12px 0 -2px;
+    color:var(--accent);
+  }
+  .lede p{margin:0 0 18px;color:var(--ink);}
+  .lede p:last-child{margin-bottom:0;}
+
+  h2{
+    font-family:"Noto Serif KR",serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.4;
+    margin:72px 0 12px;
+    letter-spacing:-.005em;
+    color:var(--ink);
+  }
+  h2 .ch{
+    display:block;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+
+  p{margin:0 0 26px;color:var(--ink-soft);}
+  p strong{color:var(--ink);font-weight:700;}
+  em{font-style:italic;color:var(--ink);}
+
+  ul.clean{
+    list-style:none;
+    padding:0;
+    margin:14px 0 32px;
+    border-left:2px solid var(--accent-soft);
+  }
+  ul.clean li{
+    padding:10px 0 10px 18px;
+    color:var(--ink-soft);
+    margin:4px 0;
+    line-height:1.7;
+  }
+  ul.clean li strong{color:var(--accent);}
+
+  /* ---------- ENTRY CARD (concrete ontology entry) ---------- */
+  .entry-card{
+    margin:32px 0 36px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 6px 24px -16px rgba(8,12,22,.25);
+  }
+  .entry-card .head{
+    background:var(--accent);
+    color:#fff;
+    padding:12px 22px;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:12px;
+  }
+  .entry-card .head .name{
+    letter-spacing:.06em;
+    font-size:15px;
+    font-weight:600;
+    text-transform:none;
+  }
+  .entry-card .body{padding:8px 22px 14px;}
+  .entry-card .row{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:16px;
+    padding:12px 0;
+    border-bottom:1px dashed var(--line);
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:14.5px;
+    line-height:1.7;
+  }
+  .entry-card .row:last-child{border-bottom:none;}
+  .entry-card .key{
+    color:var(--accent);
+    font-weight:600;
+    font-size:12px;
+    letter-spacing:.06em;
+    padding-top:2px;
+  }
+  .entry-card .val{color:var(--ink);}
+  .entry-card .val code{
+    background:var(--accent-soft);
+    color:var(--accent);
+    padding:1px 7px;
+    border-radius:3px;
+    font-size:13px;
+    font-family:"Inter",monospace;
+  }
+
+  blockquote{
+    margin:44px -16px;
+    padding:30px 34px;
+    border-left:3px solid var(--accent);
+    background:var(--accent-soft);
+    font-family:"Noto Serif KR",serif;
+    font-size:20px;
+    line-height:1.65;
+    color:var(--quote);
+    font-weight:500;
+  }
+  blockquote p{margin:0;color:var(--quote);}
+  blockquote .cite{
+    display:block;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--mute);
+    margin-top:14px;
+    font-weight:500;
+  }
+
+  .pull{
+    margin:56px 0;
+    padding:0;
+    text-align:center;
+    font-family:"Noto Serif KR",serif;
+    font-size:24px;
+    line-height:1.55;
+    color:var(--accent);
+    font-weight:500;
+    letter-spacing:-.005em;
+  }
+  .pull::before,.pull::after{
+    content:"";
+    display:block;
+    width:40px;
+    height:1px;
+    background:var(--accent);
+    margin:18px auto;
+    opacity:.6;
+  }
+
+  .scene{
+    margin:32px 0 32px;
+    padding:24px 28px;
+    background:#fbfaf6;
+    border:1px solid var(--line);
+    border-left:3px solid #c9b88a;
+    border-radius:4px;
+  }
+  .scene .tag{
+    display:inline-block;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:10px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:#8a7448;
+    margin-bottom:10px;
+  }
+  .scene p{margin:0 0 14px;color:var(--ink);}
+  .scene p:last-child{margin-bottom:0;}
+
+  ul.timeline{
+    list-style:none;
+    padding:0;
+    margin:24px 0 32px;
+  }
+  ul.timeline li{
+    position:relative;
+    padding:14px 0 16px 90px;
+    border-bottom:1px dashed var(--line);
+    color:var(--ink-soft);
+    line-height:1.75;
+    margin:0;
+  }
+  ul.timeline li:last-child{border-bottom:none;}
+  ul.timeline li .t{
+    position:absolute;
+    left:0;
+    top:18px;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--accent);
+    font-weight:700;
+    background:var(--accent-soft);
+    padding:3px 8px;
+    border-radius:3px;
+  }
+  ul.timeline li strong{color:var(--accent);}
+
+  .vendor-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:14px 0 32px;
+  }
+  .vendor-row span{
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:13px;
+    padding:6px 12px;
+    background:#f3f4f6;
+    color:var(--ink);
+    border-radius:999px;
+    letter-spacing:.01em;
+  }
+
+  .endmark{
+    text-align:center;
+    margin:64px 0 0;
+    color:var(--accent);
+    letter-spacing:.5em;
+    font-size:14px;
+  }
+
+  footer{
+    max-width:720px;
+    margin:48px auto 80px;
+    padding:0 56px;
+    font-family:"Inter","Pretendard",sans-serif;
+    font-size:13px;
+    color:var(--mute);
+    line-height:1.7;
+  }
+  footer hr{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:0 0 24px;
+  }
+  footer .refs{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+  footer .refs b{color:var(--ink);font-weight:600;}
+
+  @media (max-width:720px){
+    body{font-size:17px;line-height:1.85}
+    article{padding:40px 24px 64px;margin-top:-40px}
+    footer{padding:0 24px}
+    blockquote{margin:36px -8px;padding:22px 22px;font-size:18px}
+    h2{font-size:22px}
+    .lede{font-size:19px}
+    .lede::first-letter{font-size:54px}
+    .pull{font-size:20px}
+    .scene{padding:20px 22px}
+    .entry-card .row{grid-template-columns:80px 1fr;gap:12px;font-size:13.5px}
+    .entry-card .head{padding:11px 18px}
+    .entry-card .body{padding:6px 18px 12px}
+    .hero{height:auto;min-height:auto;padding:0;}
+    .hero img{position:relative;height:60vh;min-height:380px;}
+    .hero::after{height:60vh;min-height:380px;}
+    .hero-inner{padding:0 20px 36px;}
+  }
+  @media (max-width:480px){
+    body{font-size:16px;line-height:1.8}
+    article{padding:30px 18px 48px;margin-top:-28px}
+    footer{padding:0 18px}
+    h1.title{font-size:24px}
+    h2{font-size:20px}
+    .lede{font-size:17.5px}
+    .lede::first-letter{font-size:46px;margin:4px 10px 0 -1px}
+    .pull{font-size:18px}
+    blockquote{font-size:17px;padding:20px 18px}
+    .scene{padding:18px 18px}
+    .scene .tag{font-size:9px}
+    .entry-card .row{grid-template-columns:74px 1fr;gap:10px;font-size:12.5px}
+    .entry-card .head{padding:10px 16px;font-size:10px}
+    .entry-card .head .name{font-size:13.5px}
+    .entry-card .body{padding:4px 16px 10px}
+    ul.timeline li{padding:12px 0 14px 78px;font-size:14.5px}
+    ul.timeline li .t{font-size:10px;padding:2px 6px;letter-spacing:.1em}
+    .vendor-row{gap:8px}
+    .vendor-row span{font-size:12px;padding:5px 10px}
+    .meta{font-size:10.5px}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <img src="군집비행.png" alt="구름 위를 비행하는 드론 군집">
+  <div class="hero-inner">
+    <div class="kicker ui">Essay · Drone Swarm Story</div>
+    <h1 class="title">하늘의 오케스트라<br>드론은 어떻게 '우리'가 되는가</h1>
+    <p class="subtitle ui">평창의 1,218대는 군집이 아니었다. 새 떼에서 산불 현장의 다섯 드론까지 — 기계들이 좌표 너머의 의미를 나누기 시작한 순간에 관한 이야기.</p>
+    <div class="meta ui"><span>2026</span><span>약 11분 소요</span><span>by 드론 노트</span></div>
+  </div>
+</section>
+
+<article>
+
+  <div class="lede">
+    <p>기억하시는 분이 많을 것이다. 2018년 2월 9일, 평창 동계올림픽 개회식. 밤하늘에 1,218대의 드론이 떠올라 천천히 오륜기를 그렸다. 사람들은 입을 다물지 못했다. 다음 날 모두가 비슷한 말을 했다. "드론들이 서로 협력해서 그림을 그리더라."</p>
+    <p>그런데 이건 사실이 아니다. 그날 그 드론들은 서로 한 마디도 나누지 않았다. 옆에 누가 있는지조차 알지 못했다. 모든 좌표는 지상의 단 한 대의 컴퓨터가 미리 계산해서, 정해진 시간에 "너는 여기로 가라"고 1,218번 던져준 것이다. 한 명의 지휘자가 1,218개의 악기를 직접, 동시에, 정확하게 연주한 셈이다. 정밀했지만 자율은 아니었다.</p>
+    <p>그렇다면 진짜 군집비행 — 드론들이 누구의 지시 없이 스스로 판단하고 협력하는 군집 — 은 어떻게 가능할까. 신기하게도 그 답은 컴퓨터가 아니라, 자연이 먼저 알고 있었다.</p>
+  </div>
+
+  <!-- ===== Ch1 ===== -->
+  <h2><span class="ch ui">Chapter 1 · 자연이 먼저 알고 있었다</span>새 떼는 어떻게 부딪히지 않을까</h2>
+
+  <p>가을 저녁 들판에서 찌르레기 떼를 본 적이 있는가. 수만 마리가 마치 한 덩어리의 살아 있는 천처럼 일렁이며 하늘을 가르는 광경. 누구도 명령하지 않고, 누구도 충돌하지 않는다. 매가 덮쳐오는 순간 그 거대한 무리는 마치 하나의 생명체처럼 형태를 일그러뜨려 위협을 흘려보낸다.</p>
+
+  <p>1986년, 컴퓨터 그래픽 연구자 크레이그 레이놀즈는 이 신비를 단 세 가지 규칙으로 풀어냈다. 그가 만든 가상의 새들에게 붙인 이름이 "보이즈(Boids)"였다.</p>
+
+  <ul class="clean">
+    <li><strong>너무 가까운 옆 친구에게서는 살짝 떨어져라.</strong> — 부딪히지 않으려고.</li>
+    <li><strong>옆 친구들이 가는 방향에 내 방향을 맞춰라.</strong> — 대충 같은 쪽으로 가려고.</li>
+    <li><strong>옆 친구들의 한가운데 쪽으로 끌려가라.</strong> — 혼자 떨어지지 않으려고.</li>
+  </ul>
+
+  <p>이게 전부였다. 사령관도 없고, 전체 지도도 없다. 한 마리는 그저 자기 옆에 있는 몇 마리만 보고 위 세 가지를 따른다. 그런데 이 단순한 규칙을 수만 마리가 동시에 따르자, 거짓말처럼 진짜 새 떼와 똑같은 움직임이 화면에 나타났다. 이 알고리즘은 곧 〈배트맨 리턴즈〉의 박쥐 떼, 〈라이온 킹〉의 누 떼를 만드는 데 쓰였고, 결국 오늘날 드론 군집 연구의 출발점이 되었다.</p>
+
+  <p>핵심은 이것이다. <strong>각자가 자기 자리에서 작은 규칙을 따랐을 뿐인데, 무리 전체에 질서가 생긴다.</strong> 사령관 없이 만들어지는 질서다.</p>
+
+  <!-- ===== Ch2 ===== -->
+  <h2><span class="ch ui">Chapter 2 · 그런데 새는 회의를 안 한다</span>임무가 주어지는 순간 모든 게 어려워진다</h2>
+
+  <p>하지만 잠깐 멈춰서 생각해 보자. 새 떼는 왜 모이는가. 사실 별 이유가 없다. 그저 모이는 것 자체가 새들의 본능이다. 어디로 가든 자유다. 새들은 회의를 하지 않는다. 보고서도 안 쓴다.</p>
+
+  <p>드론은 다르다. 드론에게는 임무가 있다. "산속에 조난자가 있다, 찾아와라." "공장에 불이 났다, 어디서 시작됐는지 보고해라." "이 항구의 컨테이너 50개를 정해진 위치로 옮겨라." 이런 일들은 그냥 모여 있기만 해서는 절대 끝나지 않는다. 임무가 주어지는 순간, 보이즈의 우아한 세 가지 규칙으로는 풀 수 없는 문제가 줄줄이 따라온다.</p>
+
+  <p>한 가지 장면을 같이 그려 보자.</p>
+
+  <div class="scene">
+    <div class="tag ui">SCENE — 산불 현장</div>
+    <p>강원도 어느 산악지대에 산불이 번지고 있다. 다섯 대의 드론이 거의 동시에 도착했다. 한 대는 소방청에서 보낸 열화상 카메라 드론. 한 대는 군에서 보낸 정찰 드론. 한 대는 지자체 산림과의 측량 드론. 두 대는 민간 구조단체의 영상 드론이다. 다섯 대 모두 카메라가 있고, 다섯 대 모두 날 수 있고, 다섯 대 모두 통신이 된다. 그런데 임무를 시작하자마자 지휘소가 머리를 감싸 쥔다.</p>
+    <p>소방청 드론이 발견한 무언가를 "fire(화재)"라고 보고한다. 군 드론은 같은 장면을 "ignition source(점화원)"라고 보고한다. 같은 사건일까, 다른 사건일까? 산림과 드론은 그 옆에 서 있는 사람을 그냥 "객체"라고 적어 보내고, 구조단체 드론은 같은 사람을 "구조 대상자"라고 적어 보낸다. 둘은 같은 사람일까? 아니면 한 명은 이미 안전하게 빠져나온 등산객이고, 다른 한 명은 정말로 도움이 필요한 조난자일까?</p>
+    <p>좌표는 정확하다. 위도와 경도는 한 치도 어긋나지 않는다. 그런데 그 좌표 위에 무엇이 있는지에 대해서는 다섯 대가 다섯 가지 말을 한다. 마치 다섯 명이 다섯 가지 외국어로 보고서를 써 보내는 것 같다.</p>
+  </div>
+
+  <p>이게 보이즈가 풀지 못하는 문제다. 보이즈는 "어디에 있을까"는 알지만, "거기 있는 게 뭘까"는 모른다. 새들에게는 이 문제가 없다. 새들은 회의도 보고도 안 하니까. 하지만 드론에게 임무를 주는 순간, 드론들에게는 회의실이 필요해진다. 더 정확히 말하면, <strong>회의에서 같은 단어를 같은 뜻으로 쓰기 위한 사전이 필요해진다.</strong></p>
+
+  <!-- ===== Ch3 ===== -->
+  <h2><span class="ch ui">Chapter 3 · 사전 한 페이지를 펼쳐 보자</span>온톨로지는 실제로 어떻게 생겼는가</h2>
+
+  <p>여기서 잠깐, 우리 동네 이야기로 돌아와 보자. 세계 각국에서 모인 의사 다섯 명이 한 환자를 진찰한다고 생각해 보자. "흉통", "chest pain", "Brustschmerz" — 단어는 통역사가 통하게 해 준다. 그런데 더 어려운 문제는 그다음이다. 이 흉통이 가벼운 근육통인지, 협심증인지, 심근경색인지에 대해 의사마다 기준이 조금씩 다르다면? 누가 무엇을 "심근경색"이라고 부르느냐에 따라 환자가 받는 치료가 완전히 달라진다. 그래서 의료계에는 SNOMED CT라는 거대한 공유 사전이 있다. 전 세계 의사들이 같은 진단명을 같은 정의로 쓰기 위해 만든 약속이다.</p>
+
+  <p>드론에게 필요해진 것이 정확히 이 사전이다. 컴퓨터 과학에서는 이 드론판 사전을 <strong>온톨로지(ontology)</strong>라 부른다. 이름이 낯설게 들리지만, 본질은 그저 기계들의 공유 사전이다. 그런데 이 "사전"은 우리가 책장에서 꺼내 보는 사전과 모양이 좀 다르다. 한 페이지를 직접 펼쳐 보면 이렇게 생겼다.</p>
+
+  <div class="entry-card">
+    <div class="head ui"><span>사전 항목</span><span class="name">구조대상자</span></div>
+    <div class="body">
+      <div class="row"><div class="key ui">분류</div><div class="val">사람의 한 종류 — <code>사람</code> → <code>생명체</code> → <code>보호 대상</code></div></div>
+      <div class="row"><div class="key ui">속성</div><div class="val">위치, 의식 상태, 이동 가능 여부, 발견 시각, 발견한 드론</div></div>
+      <div class="row"><div class="key ui">조건</div><div class="val"><code>위치 ∈ 재난영역</code> <em>그리고</em> <code>의식상태 ∈ {불명, 저하}</code> → 구조 우선순위 1등급</div></div>
+      <div class="row"><div class="key ui">자동연결</div><div class="val">충돌 회피 1등급 · 영상 송출 대상 · 본부 즉시 보고 · 인근 드론 모드 전환 트리거</div></div>
+      <div class="row"><div class="key ui">동의어</div><div class="val">survivor, victim, person_in_distress (다른 사전과의 매핑)</div></div>
+    </div>
+  </div>
+
+  <p>이게 사전의 한 페이지다. 단어 하나가 <strong>위로는 무엇의 한 종류인지(분류)</strong>, <strong>옆으로는 어떤 정보를 담을 수 있는지(속성)</strong>, <strong>어떤 조건일 때 어떤 결론으로 이어지는지(조건)</strong>, <strong>발화되는 즉시 자동으로 끌려오는 다른 단어들(자동연결)</strong>, 그리고 <strong>다른 사전의 어떤 단어와 같은 뜻인지(동의어)</strong>까지 함께 적혀 있다. 그냥 정의 모음이 아니라, <em>기계가 추론할 수 있게 만들어진 정의 모음</em>이다. 이런 항목 수백, 수천 개가 모인 것이 한 분야의 온톨로지가 된다.</p>
+
+  <p>여기서 흔한 오해 하나를 풀고 가자. 이 사전이 1장의 보이즈를 대체하는 게 아니다. <strong>보이즈 위에 얹히는 새로운 층이다.</strong> 부딪히지 않고 떼지어 나는 일은 여전히 레이놀즈의 세 규칙이 담당한다. 그 위에서 사전이 작동한다. 드론은 좌표를 공유하면서 동시에 의미도 공유한다. 후자가 더해지는 순간, 드론들은 단순한 <em>무리</em>에서 <em>팀</em>으로 바뀐다.</p>
+
+  <!-- ===== Ch4 ===== -->
+  <h2><span class="ch ui">Chapter 4 · 판단의 1초를 슬로우모션으로</span>한 단어가 다섯 대를 동시에 움직이는 원리</h2>
+
+  <p>그래서 이 사전이 실제 임무 중에 어떻게 작동하는지, 한 번의 판단을 슬로우모션으로 해부해 보자. 다시 산불 현장이다. 소방청 열화상 드론이 산비탈을 훑던 중, 화면 아래쪽에 따뜻한 색의 작은 윤곽 하나가 잡힌다. 그 1초가 천천히 흐른다고 상상해 보자.</p>
+
+  <ul class="timeline">
+    <li><span class="t ui">+0.00초</span>카메라 픽셀이 들어온다. 따뜻한 색의 작은 형체. 아직 의미는 없다 — 그저 빛의 패턴일 뿐이다.</li>
+    <li><span class="t ui">+0.20초</span>드론 안의 작은 AI가 그 형체를 분석한다. 두 개의 다리, 일정한 자세, 사람 크기. 한 단어가 떨어진다 — <strong>"사람"</strong>.</li>
+    <li><span class="t ui">+0.22초</span>그 단어가 사전에 던져진다. 3장에서 본 <code>구조대상자</code> 항목이 즉시 펼쳐진다. 분류·속성·조건·자동연결이 한꺼번에 활성화된다.</li>
+    <li><span class="t ui">+0.23초</span>조건이 따져진다. <em>현재 임무가 재난수색이고, 위치가 화재 영역 안이다 → 이 사람은 그냥 사람이 아니라 구조대상자다.</em> 드론은 행동 모드를 자동으로 바꾼다.</li>
+    <li><span class="t ui">+0.25초</span>무전이 옆 드론 네 대에 단 한 줄을 던진다. <strong>"구조대상자, (37.x, 127.x)."</strong> 같은 사전을 든 네 대도 그 한 줄에서 즉시 같은 결론에 도달한다.</li>
+  </ul>
+
+  <p>한 가지만 정직하게 짚자. 엄밀히 말하면 이 일을 하는 건 사전 자체가 아니라, 그 사전을 읽고 조건을 따져 결과를 끌어내는 작은 프로그램(추론기)이다. 사전과 추론기는 늘 한 쌍으로 다닌다 — 사전이 길이라면, 그 길을 걷는 건 따로 있는 다리다. 다만 이 둘이 너무 단단히 묶여 있어서 글에서는 편의상 합쳐 "사전"이라 부르고 있다.</p>
+
+  <p>여기서 놓치면 안 되는 통찰이 하나 더 있다. <strong>다섯 대의 드론은 서로 길게 설명하지 않았다.</strong> 좌표 한 줄과 단어 한 줄, 그게 전부였다. 그런데도 다섯 대 모두 같은 결론에 도달했다. 통신량은 거의 늘지 않았는데, 협업의 깊이는 한 차원 깊어졌다. 이게 사전이 가져오는 진짜 변화다 — <em>말이 짧아져도 뜻이 더 정확해진다.</em></p>
+
+  <p>이제 2장에서 본 그 곤란한 상황으로 돌아가 보자. 소방청 드론이 "fire"라 보고하고 군 드론이 "ignition source"라 보고하던 그 충돌. 사전이 없다면 두 보고는 두 사건이 된다. 사전이 있으면 다르다 — 두 단어가 사전 안에서 같은 상위 단어("발화 가능 열 이상 현상") 아래에 매달려 있고, 사전 항목의 "동의어" 칸에 서로의 이름이 적혀 있기 때문이다. 좌표가 가깝고 시간이 거의 같다는 정보까지 더해지면, 시스템은 즉시 결론을 낸다. <em>"둘은 같은 사건의 다른 이름이다."</em> 사람이 따로 따지지 않아도 사전이 알아서 묶는다.</p>
+
+  <div class="pull">드론은 보고 결정하지 않는다.<br>보고, 사전을 따라 미끄러져 결정한다.</div>
+
+  <!-- ===== Ch5 (was Ch6, compressed) ===== -->
+  <h2><span class="ch ui">Chapter 5 · 이미 와 있는 미래</span>학계의 사전이 기업의 카탈로그로</h2>
+
+  <p>그렇다면 이런 사전이 실제로 만들어지고 있을까. 답은 "그렇다, 그것도 빠르게"다. EU의 SWARMs 프로젝트는 수중·공중 로봇이 같은 사전을 쓰도록 10년째 다듬고 있다. 2025년 학술지 〈Knowledge-Based Systems〉에는 "드로네톨로지(Dronetology)"라는 드론 전용 사전이 정식으로 발표되었다. 미국 DARPA의 군집 드론 프로그램과 NATO의 표준화 활동에서도 같은 작업이 핵심 과제로 다루어진다. 가장 빠르게 움직이는 건 학계가 아니라 기업이다. 오라클은 자사 데이터베이스 안에 이런 사전을 만들고 운영할 도구를 정식 제품으로 탑재했고, 자사 문서에 "정부의 국방·공공안전 시장 활용"을 명시한다. 같은 방향으로 움직이는 글로벌 기업이 한둘이 아니다.</p>
+
+  <div class="vendor-row ui">
+    <span>Oracle RDF Knowledge Graph</span>
+    <span>Microsoft Azure Digital Twins</span>
+    <span>AWS Neptune</span>
+    <span>Palantir Gotham</span>
+  </div>
+
+  <p>학계의 논문이 슬그머니 기업의 제품 카탈로그로 넘어가는 그 조용한 이주는 거의 마무리 단계다.</p>
+
+  <!-- ===== Epilogue ===== -->
+  <h2><span class="ch ui">Epilogue · 기계의 1인칭 복수</span>다음 1,218대는 이름이 될 것이다</h2>
+
+  <p>처음 평창의 1,218대 드론에서 출발한 짧은 여정을 정리해 보자. 새 떼의 단순한 세 규칙(보이즈)에서 시작해, 그 규칙으로는 풀 수 없는 임무라는 문제 — 산불 현장의 다섯 드론이 같은 사람을 다섯 가지로 부르는 문제 — 에 부딪혔다. 그래서 드론들끼리 같은 단어를 같은 뜻으로 쓰기 위한 공유 사전이 필요해졌고, 우리는 그 사전 한 페이지를 직접 펼쳐 봤다. 한 단어가 발화되는 순간 분류와 조건과 자동연결이 한꺼번에 활성화되어 다섯 드론을 한 팀으로 묶어내는 메커니즘도 봤다.</p>
+
+  <p>이 모든 길은 한 방향을 가리킨다. <strong>앞으로의 군집비행은 더 많은 드론에서 오지 않는다. 서로를 더 잘 이해하는 드론에서 온다.</strong> 한 대가 옆 한 대를 더 정확히 알아볼수록, 사람이 더 적게 개입해도 되는 미래가 가까워진다.</p>
+
+  <p>기계가 처음으로 "내가 한다"가 아니라 "우리가 한다"라고 말할 수 있게 되는 순간이 있다. 그때가 진짜 군집비행의 시작이다. 그날 평창의 1,218대는 그저 점이었다. <strong>다음 1,218대는 이름이 될 것이다.</strong></p>
+
+  <div class="endmark ui">· · ·</div>
+
+</article>
+
+<footer class="ui">
+  <hr>
+  <div class="refs">
+    <div><b>주요 참고</b> · Reynolds, "Flocks, Herds, and Schools" (SIGGRAPH '87) · SWARMs Ontology, EU H2020 · Dronetology, 〈Knowledge-Based Systems〉 (2025) · Oracle RDF Knowledge Graph 공식 문서.</div>
+    <div><b>이미지</b> · 군집비행.png</div>
+    <div><b>분량</b> · 약 5,000자 / 읽는 데 11분</div>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);"><b>더 깊이 →</b> <a href="tech.html" style="color:var(--accent);text-decoration:none;font-weight:500;">기술 노트: 온톨로지·TypeDB·시나리오의 작동 원리</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
