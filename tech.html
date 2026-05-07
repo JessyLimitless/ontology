@@ -974,6 +974,65 @@
           TypeDB가 무엇을 통합하며, 시나리오와 룰이 어떻게 자동 합성되는가.
         </p>
 
+        <!-- ============ DIAGRAM 0: SYSTEM ESSENCE (search-action loop) ============ -->
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" class="arch-svg essence-svg" role="img" aria-label="시스템 본질 — 검색-행동 자동 루프">
+          <defs>
+            <marker id="arr-ess" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+              <polygon points="0,0 10,4 0,8" fill="#1f3a5f"/>
+            </marker>
+          </defs>
+
+          <text x="360" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#5b7aa6">SYSTEM ESSENCE · 본질은 검색-행동 자동 루프</text>
+          <text x="360" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#6a7280" font-style="italic">화려한 단어들을 다 걷어내면 — 지식 그래프 위에서 도는 4단계 무한 루프</text>
+
+          <!-- ① SEARCH -->
+          <rect x="40" y="78" width="142" height="106" rx="6" fill="#fff" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="111" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">① SEARCH</text>
+          <text x="111" y="124" text-anchor="middle" font-family="Inter, sans-serif" font-size="12.5" fill="#3a3f47" font-weight="600">패턴 매칭</text>
+          <text x="111" y="146" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6a7280" font-style="italic">어느 룰의 WHEN과</text>
+          <text x="111" y="159" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6a7280" font-style="italic">매칭되는 사실 있나?</text>
+          <text x="111" y="178" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5b7aa6" font-weight="600">+ 타입 계층 자동 추론</text>
+
+          <line x1="186" y1="130" x2="210" y2="130" stroke="#1f3a5f" stroke-width="2" marker-end="url(#arr-ess)"/>
+
+          <!-- ② MATCH -->
+          <rect x="214" y="78" width="142" height="106" rx="6" fill="#e9eef5" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="285" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">② MATCH</text>
+          <text x="285" y="124" text-anchor="middle" font-family="Inter, sans-serif" font-size="12.5" fill="#1f3a5f" font-weight="600">매칭된 룰</text>
+          <text x="285" y="146" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6a7280" font-style="italic">조건 충족된 룰</text>
+          <text x="285" y="159" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6a7280" font-style="italic">한 개 또는 여러 개</text>
+
+          <line x1="360" y1="130" x2="384" y2="130" stroke="#1f3a5f" stroke-width="2" marker-end="url(#arr-ess)"/>
+
+          <!-- ③ FIRE -->
+          <rect x="388" y="78" width="142" height="106" rx="6" fill="#fdf6e8" stroke="#8a5a18" stroke-width="1.5"/>
+          <text x="459" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="#8a5a18">③ FIRE</text>
+          <text x="459" y="124" text-anchor="middle" font-family="Inter, sans-serif" font-size="12.5" fill="#3a3f47" font-weight="600">THEN 자동 실행</text>
+          <text x="459" y="146" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6a7280" font-style="italic">매칭된 룰의 행동을</text>
+          <text x="459" y="159" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6a7280" font-style="italic">시스템이 자동 실행</text>
+          <text x="459" y="178" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#8a5a18" font-weight="600">★ 액션 트리거</text>
+
+          <line x1="534" y1="130" x2="558" y2="130" stroke="#1f3a5f" stroke-width="2" marker-end="url(#arr-ess)"/>
+
+          <!-- ④ NEW FACT -->
+          <rect x="562" y="78" width="142" height="106" rx="6" fill="#1f3a5f" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="633" y="100" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5" fill="#dde3ec">④ NEW FACT</text>
+          <text x="633" y="124" text-anchor="middle" font-family="Inter, sans-serif" font-size="12.5" fill="#fff" font-weight="600">새 사실 생성</text>
+          <text x="633" y="146" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#a8b2c2" font-style="italic">KG에 등록 → 다음</text>
+          <text x="633" y="159" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#a8b2c2" font-style="italic">검색의 입력이 됨</text>
+
+          <!-- LOOP-BACK arrow (curved) -->
+          <path d="M 633 188 Q 633 248 360 248 Q 111 248 111 188" stroke="#1f3a5f" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-ess)"/>
+          <rect x="262" y="232" width="200" height="22" rx="11" fill="#fff" stroke="#1f3a5f"/>
+          <text x="362" y="247" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#1f3a5f" font-weight="700">자동 루프 · 사람 개입 없음</text>
+
+          <!-- Bottom caption -->
+          <text x="360" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" fill="#3a3f47" font-weight="500">검색 엔진 + 룰 트리거 + 자동 루프</text>
+          <text x="360" y="307" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#6a7280" font-style="italic">= "온톨로지 기반 자율 시스템"이라는 화려한 이름의 진짜 정체</text>
+        </svg>
+
+        <p class="arch-caption"><strong>본질</strong> · 우리 시스템 = <em>검색</em>(패턴 매칭) → <em>매칭</em>(룰 발견) → <em>발화</em>(THEN 실행) → <em>새 사실</em>(KG 갱신) → 다시 검색의 무한 루프. 온톨로지는 이 검색의 *깊이(계층 추론)*를, 룰은 검색의 *행동(트리거)*을 담당. 아래 세 다이어그램은 이 루프의 각 부분을 줌인한 것.</p>
+
         <!-- ============ ARCHITECTURE DIAGRAM ============ -->
         <svg viewBox="0 0 720 600" xmlns="http://www.w3.org/2000/svg" class="arch-svg" role="img" aria-label="드론 군집 + 온톨로지 + TypeDB 통합 아키텍처">
           <defs>
@@ -1070,7 +1129,7 @@
           <text x="78" y="586" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">"detection_2387 a SearchTarget @(37.1, 127.4)"</text>
         </svg>
 
-        <p class="arch-caption"><strong>구조</strong> · 위: 통계적 지각 (신경망) · 가운데: 통합 데이터베이스 (타입·사실·룰·시나리오 + 추론기) · 아래: 결정의 표준화된 송신</p>
+        <p class="arch-caption"><strong>구조 줌인</strong> · 루프가 <em>어디서</em> 도는가 · 위: 통계적 지각 (신경망) · 가운데: 통합 데이터베이스 (타입·사실·룰·시나리오 + 추론기) · 아래: 결정의 표준화된 송신</p>
 
         <!-- ============ PREDICTIVE TRIGGER → ROUTING → NEW ENVIRONMENT ============ -->
         <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" class="arch-svg cascade-svg" role="img" aria-label="예측 임계치 → 트리거 → 룰 라우팅 → 새 데이터셋 환경 형성 메커니즘">
@@ -1187,7 +1246,7 @@
           <text x="360" y="713" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#1f3a5f" font-style="italic" font-weight="500">"트리거 한 번 = 새로운 룰 풀이 깨어남" — 적실한 판단은 트리거 자체가 아니라 트리거 이후 새 환경에서 일어난다</text>
         </svg>
 
-        <p class="arch-caption"><strong>동역학·결정 로직</strong> · 예측 임계치(80) 초과 → 트리거 → 새 사실 insert → 룰 라우터가 모든 룰과 패턴 매칭 → 매칭된 룰 발화 → 새 사실 도출 → 그 결과 *이전엔 매칭 안 되던 stage-specific 룰들이 활성화* (휴면 → LIVE). <em>이게 "새 데이터셋 환경"의 본질</em> — 단순히 사실 하나 추가가 아니라 *룰의 매칭 가능 영역 자체가 확장됨*.</p>
+        <p class="arch-caption"><strong>① SEARCH 줌인</strong> · 루프의 <em>첫 단계</em>는 어떻게 시작되나 · 예측 임계치(80) 초과 → 트리거 → 새 사실 insert → 룰 라우터가 모든 룰과 패턴 매칭 → 매칭된 룰 발화 → 새 사실 도출 → 그 결과 *이전엔 매칭 안 되던 stage-specific 룰들이 활성화* (휴면 → LIVE). <em>이게 "새 데이터셋 환경"의 본질</em> — 단순히 사실 하나 추가가 아니라 *룰의 매칭 가능 영역 자체가 확장됨*.</p>
 
         <!-- ============ IF-CLAUSE CASCADE: HOW SCENARIO FORMS ============ -->
         <svg viewBox="0 0 720 660" xmlns="http://www.w3.org/2000/svg" class="arch-svg cascade-svg" role="img" aria-label="이프 절 캐스케이드 — 룰의 WHEN-THEN 연쇄가 시나리오를 만드는 메커니즘">
@@ -1293,7 +1352,7 @@
           <text x="58" y="641" font-family="Inter, sans-serif" font-size="11" fill="#dde3ec">시나리오 시작 (R-01) + 인근 지원 요청 (R-06) + Stage1 룰 풀 활성화 (R-02·03 대기) + 자원 매칭</text>
         </svg>
 
-        <p class="arch-caption"><strong>이프 절 캐스케이드</strong> · 룰은 <code>WHEN(조건)</code> + <code>THEN(행동)</code>의 두 부분. 트리거 사실이 어느 룰의 WHEN과 매칭되면 그 룰의 THEN이 실행되어 *새 사실*이 도출되고, 그 새 사실이 다시 다른 룰의 WHEN과 매칭됨. <em>이 발화 연쇄의 누적이 곧 "시나리오"</em>다 — 사람이 시나리오를 적는 게 아니라 룰들이 모여 시나리오를 만들어낸다.</p>
+        <p class="arch-caption"><strong>②③④ MATCH·FIRE·NEW FACT 줌인</strong> · 루프의 <em>한 사이클</em>이 자세히 어떻게 돌아가나 · 룰은 <code>WHEN(조건)</code> + <code>THEN(행동)</code>의 두 부분. 트리거 사실이 어느 룰의 WHEN과 매칭되면 그 룰의 THEN이 실행되어 *새 사실*이 도출되고, 그 새 사실이 다시 다른 룰의 WHEN과 매칭됨. <em>이 발화 연쇄의 누적이 곧 "시나리오"</em>다 — 사람이 시나리오를 적는 게 아니라 룰들이 모여 시나리오를 만들어낸다.</p>
 
         <div class="cover-meta">
           <span>11 SECTIONS</span>
