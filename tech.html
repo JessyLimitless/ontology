@@ -1189,6 +1189,112 @@
 
         <p class="arch-caption"><strong>동역학·결정 로직</strong> · 예측 임계치(80) 초과 → 트리거 → 새 사실 insert → 룰 라우터가 모든 룰과 패턴 매칭 → 매칭된 룰 발화 → 새 사실 도출 → 그 결과 *이전엔 매칭 안 되던 stage-specific 룰들이 활성화* (휴면 → LIVE). <em>이게 "새 데이터셋 환경"의 본질</em> — 단순히 사실 하나 추가가 아니라 *룰의 매칭 가능 영역 자체가 확장됨*.</p>
 
+        <!-- ============ IF-CLAUSE CASCADE: HOW SCENARIO FORMS ============ -->
+        <svg viewBox="0 0 720 660" xmlns="http://www.w3.org/2000/svg" class="arch-svg cascade-svg" role="img" aria-label="이프 절 캐스케이드 — 룰의 WHEN-THEN 연쇄가 시나리오를 만드는 메커니즘">
+          <defs>
+            <marker id="arr-bw" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0,0 9,3.5 0,7" fill="#1f3a5f"/>
+            </marker>
+            <marker id="arr-warm" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0,0 9,3.5 0,7" fill="#8a5a18"/>
+            </marker>
+          </defs>
+
+          <text x="360" y="18" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="3" fill="#5b7aa6">IF-CLAUSE CASCADE · 룰의 WHEN/THEN 연쇄가 시나리오를 만든다</text>
+
+          <!-- ===== PHASE A: 트리거 → 첫 룰 발화 ===== -->
+          <text x="40" y="48" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#8a5a18">PHASE A · 트리거 한 사실 → 첫 룰의 WHEN과 매칭 → 첫 발화</text>
+
+          <!-- Trigger fact (left) -->
+          <rect x="40" y="58" width="232" height="84" rx="6" fill="#1f3a5f"/>
+          <text x="54" y="78" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#dde3ec">TRIGGER FACT</text>
+          <text x="54" y="100" font-family="JetBrains Mono, monospace" font-size="11" fill="#fff">RiskAssessment {</text>
+          <text x="62" y="115" font-family="JetBrains Mono, monospace" font-size="11" fill="#fff">  level: Critical</text>
+          <text x="62" y="130" font-family="JetBrains Mono, monospace" font-size="11" fill="#fff">  region: Gangwon-A</text>
+          <text x="54" y="138" font-family="JetBrains Mono, monospace" font-size="11" fill="#fff">}</text>
+
+          <!-- Match arrow with label -->
+          <line x1="280" y1="100" x2="304" y2="100" stroke="#8a5a18" stroke-width="1.5" marker-end="url(#arr-warm)"/>
+          <text x="292" y="92" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#8a5a18" font-style="italic">매칭</text>
+
+          <!-- Rule R-PREV-01 card (right) -->
+          <rect x="312" y="58" width="368" height="156" rx="6" fill="#fff" stroke="#8a5a18" stroke-width="1.5"/>
+          <text x="328" y="80" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#8a5a18">R-PREV-01 ★ 발화</text>
+          <line x1="328" y1="88" x2="664" y2="88" stroke="#fdf6e8" stroke-width="1"/>
+
+          <text x="328" y="106" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#8a5a18">WHEN (조건):</text>
+          <text x="342" y="122" font-family="JetBrains Mono, monospace" font-size="10" fill="#3a3f47">$a isa RiskAssessment</text>
+          <text x="342" y="136" font-family="JetBrains Mono, monospace" font-size="10" fill="#3a3f47">$a.level = Critical              <tspan fill="#2d6a4f" font-weight="700">✓</tspan></text>
+          <text x="342" y="150" font-family="JetBrains Mono, monospace" font-size="10" fill="#3a3f47">NOT EXISTS active Scenario       <tspan fill="#2d6a4f" font-weight="700">✓</tspan></text>
+
+          <text x="328" y="174" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">THEN (행동):</text>
+          <text x="342" y="190" font-family="JetBrains Mono, monospace" font-size="10" fill="#1f3a5f">insert PreventionScenario {</text>
+          <text x="350" y="204" font-family="JetBrains Mono, monospace" font-size="10" fill="#1f3a5f">  stage: Stage1_Survey,  status: Active }</text>
+
+          <!-- Arrow down: derive new fact -->
+          <line x1="496" y1="222" x2="496" y2="248" stroke="#1f3a5f" stroke-width="2" marker-end="url(#arr-bw)"/>
+          <text x="504" y="240" font-family="Inter, sans-serif" font-size="9" fill="#1f3a5f" font-style="italic">새 사실 도출</text>
+
+          <!-- Derived fact -->
+          <rect x="376" y="256" width="240" height="60" rx="5" fill="#e9eef5" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="392" y="274" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">★ NEW FACT (THEN의 결과)</text>
+          <text x="392" y="294" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">PreventionScenario {</text>
+          <text x="400" y="308" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f3a5f">  stage: Stage1_Survey }</text>
+
+          <!-- Connector to Phase B -->
+          <path d="M 496 322 L 496 342 L 360 342 L 360 360" stroke="#5b7aa6" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#arr-bw)"/>
+          <text x="504" y="334" font-family="Inter, sans-serif" font-size="9" fill="#5b7aa6" font-style="italic">이 새 사실이 또 다른 룰의 WHEN과 매칭...</text>
+
+          <!-- ===== PHASE B: 새 사실 → 여러 룰의 WHEN과 매칭 ===== -->
+          <text x="40" y="380" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#8a5a18">PHASE B · 새 사실이 추가 룰들의 WHEN과 매칭됨 (병렬 평가)</text>
+
+          <!-- 3 rule cards in a row -->
+          <!-- R-PREV-02 (waiting) -->
+          <rect x="40" y="392" width="210" height="124" rx="5" fill="#fff" stroke="#dde3ec" stroke-width="1.5"/>
+          <text x="56" y="412" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#6a7280">R-PREV-02</text>
+          <line x1="56" y1="420" x2="234" y2="420" stroke="#f3f4f6"/>
+          <text x="56" y="436" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#6a7280">WHEN:</text>
+          <text x="64" y="450" font-family="JetBrains Mono, monospace" font-size="9" fill="#3a3f47">stage = Stage1            <tspan fill="#2d6a4f" font-weight="700">✓</tspan></text>
+          <text x="64" y="464" font-family="JetBrains Mono, monospace" font-size="9" fill="#a8b2c2">surveyResult = "clean"   <tspan fill="#a8b2c2">✗</tspan></text>
+          <text x="56" y="486" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#6a7280">상태:</text>
+          <text x="56" y="504" font-family="Inter, sans-serif" font-size="11" fill="#a8b2c2" font-style="italic">대기 (외부 입력 필요)</text>
+
+          <!-- R-PREV-03 (waiting) -->
+          <rect x="258" y="392" width="210" height="124" rx="5" fill="#fff" stroke="#dde3ec" stroke-width="1.5"/>
+          <text x="274" y="412" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#6a7280">R-PREV-03</text>
+          <line x1="274" y1="420" x2="452" y2="420" stroke="#f3f4f6"/>
+          <text x="274" y="436" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#6a7280">WHEN:</text>
+          <text x="282" y="450" font-family="JetBrains Mono, monospace" font-size="9" fill="#3a3f47">stage = Stage1            <tspan fill="#2d6a4f" font-weight="700">✓</tspan></text>
+          <text x="282" y="464" font-family="JetBrains Mono, monospace" font-size="9" fill="#a8b2c2">surveyResult = "hotspot" <tspan fill="#a8b2c2">✗</tspan></text>
+          <text x="274" y="486" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#6a7280">상태:</text>
+          <text x="274" y="504" font-family="Inter, sans-serif" font-size="11" fill="#a8b2c2" font-style="italic">대기 (외부 입력 필요)</text>
+
+          <!-- R-PREV-06 (FIRES IMMEDIATELY) -->
+          <rect x="476" y="392" width="206" height="124" rx="5" fill="#fdf6e8" stroke="#8a5a18" stroke-width="2"/>
+          <text x="492" y="412" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#8a5a18">R-PREV-06 ★</text>
+          <line x1="492" y1="420" x2="666" y2="420" stroke="#fef0d4"/>
+          <text x="492" y="436" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#8a5a18">WHEN:</text>
+          <text x="500" y="450" font-family="JetBrains Mono, monospace" font-size="9" fill="#3a3f47">scenario active           <tspan fill="#2d6a4f" font-weight="700">✓</tspan></text>
+          <text x="500" y="464" font-family="JetBrains Mono, monospace" font-size="9" fill="#3a3f47">availableDrones &lt; 3       <tspan fill="#2d6a4f" font-weight="700">✓</tspan></text>
+          <text x="492" y="486" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#8a5a18">즉시 발화 → THEN:</text>
+          <text x="492" y="504" font-family="JetBrains Mono, monospace" font-size="10" fill="#1f3a5f">invoke RequestSupport(...)</text>
+
+          <!-- Arrow down from R-06 -->
+          <line x1="580" y1="522" x2="580" y2="544" stroke="#1f3a5f" stroke-width="2" marker-end="url(#arr-bw)"/>
+
+          <!-- Another new fact -->
+          <rect x="476" y="552" width="206" height="42" rx="5" fill="#e9eef5" stroke="#1f3a5f" stroke-width="1.5"/>
+          <text x="492" y="568" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#1f3a5f">★ ANOTHER NEW FACT</text>
+          <text x="492" y="585" font-family="JetBrains Mono, monospace" font-size="10" fill="#1f3a5f">SupportRequest(neighbor)</text>
+
+          <!-- ===== PHASE C: SUMMARY ===== -->
+          <rect x="40" y="606" width="640" height="44" rx="6" fill="#1f3a5f"/>
+          <text x="58" y="624" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="2" fill="#fff">RESULT · 트리거 후 0.3초 안에 자동으로 일어난 일</text>
+          <text x="58" y="641" font-family="Inter, sans-serif" font-size="11" fill="#dde3ec">시나리오 시작 (R-01) + 인근 지원 요청 (R-06) + Stage1 룰 풀 활성화 (R-02·03 대기) + 자원 매칭</text>
+        </svg>
+
+        <p class="arch-caption"><strong>이프 절 캐스케이드</strong> · 룰은 <code>WHEN(조건)</code> + <code>THEN(행동)</code>의 두 부분. 트리거 사실이 어느 룰의 WHEN과 매칭되면 그 룰의 THEN이 실행되어 *새 사실*이 도출되고, 그 새 사실이 다시 다른 룰의 WHEN과 매칭됨. <em>이 발화 연쇄의 누적이 곧 "시나리오"</em>다 — 사람이 시나리오를 적는 게 아니라 룰들이 모여 시나리오를 만들어낸다.</p>
+
         <div class="cover-meta">
           <span>11 SECTIONS</span>
           <span class="dot">·</span>
